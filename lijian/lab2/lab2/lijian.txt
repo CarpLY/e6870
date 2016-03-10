@@ -1,0 +1,2 @@
+Processing utterance ID: utt2a
+Iteration 1: -11.637330 logprob/frame (68 frames)
