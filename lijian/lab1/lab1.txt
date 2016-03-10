@@ -1,0 +1,229 @@
+
+########################################################################
+#   Lab 1: My First Front End
+#   EECS E6870: Speech Recognition
+#   Due: February 12, 2016 at 6pm
+########################################################################
+
+* Name:Yang Yu (yy2623)
+
+
+########################################################################
+#   Part 0
+########################################################################
+
+* Looking at how the performance of ASR systems have progressed
+  over time, what is your best guess of when machine performance
+  will reach human performance for unconstrained speech recognition?
+  How do you feel about this?
+
+->
+
+
+* Give some reasonable values for the first 3 formants on
+  the mel scale for the vowel "I" (as in "bit") for a male and
+  female speaker.  Do you see any obvious problems in using
+  mel frequency spectrum (not cepstrum) features during
+  recognition?  How might such problems be overcome?
+
+->
+
+
+* In discussing window length in lecture 2, we talked about how
+  short windows lead to good time resolution but poor frequency resolution,
+  while long windows lead to the reverse.  One idea for addressing this problem
+  is to compute cepstral coefficients using many different window lengths,
+  and to concatenate all of these to make an extra wide feature vector.
+  What is a possible problem with this scheme?
+
+->
+
+
+* Optional: in DTW, the distance between two samples grows linearly
+  in the length of the samples.  For instance, the distance between two
+  instances of the word "no" will generally be much smaller than the
+  distance between two instances of the word "antidisestablishmentarianism".
+  One idea proposed to correct for this effect is to divide the
+  distance between two samples (given an alignment) by the number of
+  arcs in that alignment.  From the perspective of a shortest path problem,
+  this translates to looking for the path with the shortest *average*
+  distance per arc, rather than the shortest *total* distance.  Is it
+  possible to adapt the DP formula on the "Key Observation 1" slide
+  (slide ~100 in lecture 2):
+
+      d(S) = min_{S'->S} [d(S') + distance(S', S)]
+
+  to work for this new scenario?  Why or why not?
+
+->
+
+
+########################################################################
+#   Part 1
+########################################################################
+
+* Create the file "p1submit.dat" by running:
+
+      lab1 --audio_file p1test.dat --feat_file p1submit.dat
+
+  Electronically submit the files "front_end.C" and "p1submit.dat" by typing
+  the following command (in the directory ~/e6870/lab1/):
+
+      submit-e6870.py lab1 front_end.C p1submit.dat
+
+  More generally, the usage of "submit-e6870.py" is as follows:
+
+      submit-e6870.py <lab#> <file1> <file2> <file3> ...
+
+  You can submit a file multiple times; later submissions
+  will overwrite earlier ones.  Submissions will fail
+  if the destination directory for you has not been created
+  for the given <lab#>; contact us if this happens.
+
+
+########################################################################
+#   Part 2 (Optional)
+########################################################################
+
+* If you implemented a version of DTW other than the one we advocated,
+  describe what version you did implement:
+
+->
+
+
+* Create a file named "p2.submit" by running:
+
+      lab1_dtw --verbose true --template_file devtest.feats \
+        --feat_file template.feats --feat_label_list devtest.labels > p2.submit
+
+  Submit the files "lab1_dtw.C" and "p2.submit" like above:
+
+      submit-e6870.py lab1 lab1_dtw.C p2.submit
+
+
+########################################################################
+#   Part 3
+########################################################################
+
+Look at the contents of lab1p3.log and extract the following
+word accuracies:
+
+* Accuracy for windowing alone:
+
+->19.09%
+
+
+* Accuracy for windowing+FFT alone:
+
+->19.09%
+
+
+* Optional: If the above two accuracies are identical, can you give
+  an explanation of why this might be?
+
+->
+
+
+* Accuracy for window+FFT+mel-bin (w/o log):
+
+->93.64%
+
+
+* Accuracy for window+FFT+mel-bin (w/ log):
+
+->96.36%
+
+
+* Accuracy for window+FFT+mel-bin+DCT:
+
+->100%
+
+
+* Accuracy for window+FFT+mel-bin+DCT (w/o Hamming):
+
+->99.09%
+
+
+* Accuracy for MFCC on speaker-dependent task:
+
+->100%
+
+
+* Accuracy for MFCC on gender+dialect-dependent task:
+
+->96.36%
+
+
+* Accuracy for MFCC on gender-dependent task:
+
+->88.18%
+
+
+* Accuracy for MFCC on speaker independent task:
+
+->81.82%
+
+
+* What did you learn in this part?
+
+->
+
+
+* Why would dynamic time warping on the raw waveform take
+  so much longer than these other runs?
+
+->
+
+
+########################################################################
+#   Part 4 (Optional)
+########################################################################
+
+* Describe what you tried, and why:
+
+->
+
+
+* Create the files "p4small.out" and "p4large.out" as follows:
+
+    cat si.10.list | b018t.run-set.py p018h1.run_dtw.sh %trn %tst > p4small.out
+    cat si.100.list | b018t.run-set.py p018h1.run_dtw.sh %trn %tst > p4large.out
+
+  Submit these files, all source files you modified, and the binary
+  "lab1" into "lab1ec" (not "lab1" !!), e.g.:
+
+      submit-e6870.py lab1ec p4small.out p4large.out lab1 front_end.C   etc.
+
+  NOTE: we will be running your code with no extra parameters, so if
+  you added any parameters, make sure their default values are set correctly!!!
+
+
+########################################################################
+#   Wrap Up
+########################################################################
+
+After filling in all of the fields in this file, submit this file
+using the following command:
+
+    submit-e6870.py lab1 lab1.txt
+
+The timestamp on the last submission of this file (if you submit
+multiple times) will be the one used to determine your official
+submission time (e.g., for figuring out if you handed in the
+assignment on time).
+
+To verify whether your files were submitted correctly, you can
+use the command:
+
+    check-e6870.py lab1
+
+This will list all of the files in your submission directory,
+along with file sizes and submission times.  (Use the argument
+"lab1ec" instead to check your Part 4 submissions.)
+
+
+########################################################################
+#
+########################################################################
+
+
