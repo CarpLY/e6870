@@ -226,11 +226,11 @@ double LangModel::get_prob_witten_bell(const vector<int>& ngram) const
 	    vector<int> temp(i);
 	    temp[0]=ngram[m_n-i];
 	    p_WB[i-1]=(1.0*eps_hist/(eps_hist+eps_plus))*(1.0*m_predCounts.get_count(temp)/m_histCounts.get_count(temp_eps))+(1.0*eps_plus/(eps_plus+eps_hist))/vocSize;
-	    // if (m_n==2) cout<<format("vocSize %i word:%i pred %i ,hist %i, plus %i, wb %d %d \n")%vocSize %temp[0] %m_histCounts.get_count(temp) %eps_hist %eps_plus %p_WB[i-1] %(1.0*eps_plus/(eps_plus+eps_hist));
+	    if (m_n==2) cout<<format("vocSize %i word:%i pred %i ,hist %i, plus %i, wb %d %d \n")%vocSize %temp[0] %m_histCounts.get_count(temp) %eps_hist %eps_plus %p_WB[i-1] %(1.0*eps_plus/(eps_plus+eps_hist));
 	  }
 	else
 	  {
-	    //calculate P_MLE and P_WB
+	    //calculate P_MLE
 	    vector<int> temp(i);
 	    vector<int> last_temp(i-1);
 	    for (int j=0;j<i;++j)
@@ -257,8 +257,7 @@ double LangModel::get_prob_witten_bell(const vector<int>& ngram) const
 	    
 	  }
       }
-    //
-    /*if(m_n==2)
+    if(m_n==2)
       {
 	vector<int> temp(2);
 	vector<int> last_temp(1);
@@ -285,7 +284,7 @@ double LangModel::get_prob_witten_bell(const vector<int>& ngram) const
 	if (m_n==2) cout<<format("%d ")%p_WB[i];
       }
     if (m_n==2) cout<<format("\n");
-    */
+
     retProb=p_WB[m_n-1];
 
 

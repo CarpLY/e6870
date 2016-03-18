@@ -188,12 +188,7 @@ diction size decreases, PP will also decrease.
   as just another word in the vocabulary.  What are some
   advantages/disadvantages of each of these approaches?
 
--> If we treat it as a "transparent" word, we may save the time for trainning such
-silence and its related n-gram model. Instead, the validation of the real situation 
-will be compromised, which means the accuracy may be dereased. On the other hand, if 
-we treat silence as a common word, we may need more time to space to train such model.
-But if we do care the position of the silence, we may model the real sentence more precisely.
-we may get a better recognition accuracy as a result.
+->
 
 
 ########################################################################
